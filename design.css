@@ -18,9 +18,9 @@ body {
 .canvasBox {
   display: flex;
   justify-content: center;
-  align-items: center;
   height: 100vh;
-  z-index: 1;
+  align-items: center;
+  direction: ltr;
 }
 #drawing-board {
   background-color: gray;
@@ -45,4 +45,15 @@ body {
   height: 75%;
   background-color: rgb(105, 105, 105);
   z-index: 2;
+}
+#fakeCanvas {
+  display: grid;
+  position: absolute;
+  grid-template-columns: repeat(15,16px);
+  grid-template-rows: repeat(15,16px);
+  pointer-events: none;
+  transform: scale(var(--canvas-scale));
+}
+#fakeCanvas div {
+  border: 1px solid rgba(0, 0, 0, 0.082);
 }
