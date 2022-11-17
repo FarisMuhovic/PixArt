@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'VT323', monospace;
+}
+:root {
+  --pixel-size: 16px;
+  --size: 0;
+  --pixel-color: null;
+  --canvas-scale: 1;
+}
+body {
+  background-color: black;
+  color: white;
+}
+.canvasBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  z-index: 1;
+}
+#drawing-board {
+  background-color: gray;
+  transform: scale(var(--canvas-scale));
+}
+.colors {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  transform: translateY(-50%);
+  width: 100px;
+  height: 75%;
+  background-color: rgb(105, 105, 105);
+  z-index: 2;
+}
+.tools {
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  transform: translateY(-50%);
+  width: 100px;
+  height: 75%;
+  background-color: rgb(105, 105, 105);
+  z-index: 2;
+}
