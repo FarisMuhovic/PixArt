@@ -12,39 +12,43 @@
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
   </head>
   <body>
-    <div class="colors">
-      <div id="white"></div>
-      <div id="red"></div>
-      <div id="orange"></div>
-      <div id="yellow"></div>
-      <div id="green"></div>
-      <div id="blue"></div>
-      <div id="purple"></div>
-      <div id="black"></div>
-      <input type="color" id="color-input">
+    <nav>
+      <h1>PixArt</h1>
+      <div class="filemanagment">
+        <div id="import"><p>Import</p><i class="fa-solid fa-upload"></i></div>
+        <div id="export"><p>Export</p><i class="fa-solid fa-download"></i></div>
+      </div>
+    </nav>
+    <div class="vertical-nav">
+      <div class="tools">
+        <h2>TOOLS</h2>
+        <div id="marker"><i class="fa-solid fa-highlighter"></i></div>
+        <div id="eraser"><i class="fa-solid fa-eraser"></i></div>
+        <div id="zoomin"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+        <div id="zoomout"><i class="fa-solid fa-magnifying-glass-minus"></i></div>
+        <div id="pixelsize"><p>Pixel size:</p><input type="number" min="8" max="64"></div>
+        <div id="gridsize"><p>Grid size:</p><input type="number" min="4" max="24"></div>
+      </div>
+      <div class="colors">
+        <h1>COLORS</h2>
+        <div id="white"></div>
+        <div id="red"></div>
+        <div id="orange"></div>
+        <div id="yellow"></div>
+        <div id="green"></div>
+        <div id="blue"></div>
+        <div id="purple"></div>
+        <div id="black"></div>
+        <h1>CUSTOM</h1>
+        <input type="color" id="color-input">
+      </div>
     </div>
     <div class="canvasBox">
       <canvas id="drawing-board"></canvas>
       <div id="fakeCanvas"></div>
     </div> 
-    <div class="tools">
-      <div id="marker"><i class="fa-solid fa-highlighter"></i></div>
-      <div id="zoomin"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-      <div id="zoomout"><i class="fa-solid fa-magnifying-glass-minus"></i></div>
-      <div id="eraser"><i class="fa-solid fa-eraser"></i></div>
-      <div id="grabcolor"><i class="fa-solid fa-eye-dropper"></i></div>
-      <!-- <div id="pixelsize">
-        <i class="fa-regular fa-square"></i>
-        <input type="number" id="pixel-size-input">
-        <button>Submit</button>
-      </div> -->
-      <!-- <div id="gridsize">
-        <i class="fa-solid fa-border-all"></i>
-        <input type="number" id="pixel-size-input">
-        <button>Submit</button>
-      </div> -->
-      <!-- <div id="import"><i class="fa-solid fa-upload"></i></div>
-      <div id="export"><i class="fa-solid fa-download"></i></div> -->
+    <div id="cursor">
+      <i class="fa-solid fa-highlighter cursori"></i>
     </div>
   </body>
 </html>

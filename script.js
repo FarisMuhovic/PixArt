@@ -11,7 +11,7 @@ for (let i = size ** 2; i > 0; i--) {
 }
 canvasElement.width = size * pixelSize;
 canvasElement.height = size * pixelSize;
-let color = "red";
+let color = "white";
 const colors = document.querySelectorAll(".colors div");
 colors.forEach(col => {
   col.addEventListener("click", e => {
@@ -32,14 +32,23 @@ colors.forEach(col => {
     } else if (e.target.id == "black") {
       color = "black";
     }
+    root.style.setProperty("--selected-color", color);
   });
+});
+const cursor = document.getElementById("cursor");
+const colorInput = document.getElementById("color-input");
+colorInput.addEventListener("change", () => {
+  color = colorInput.value;
+  root.style.setProperty("--selected-color", color);
 });
 const eraser = document.getElementById("eraser");
 eraser.addEventListener("click", () => {
+  cursor.innerHTML = `<i class="fa-solid fa-eraser cursori"></i>`;
   canvas.globalCompositeOperation = "destination-out";
 });
 const drawingPen = document.getElementById("marker");
 drawingPen.addEventListener("click", () => {
+  cursor.innerHTML = `<i class="fa-solid fa-highlighter cursori"></i>`;
   canvas.globalCompositeOperation = "destination-over";
 });
 let scaleValue = 1;
@@ -59,7 +68,6 @@ zoomOut.addEventListener("click", () => {
   }
   root.style.setProperty("--canvas-scale", scaleValue);
 });
-// root.setAttribute('--')
 canvasElement.addEventListener("mousedown", e => {
   const CoordinateX = Math.floor(e.layerX / pixelSize) * pixelSize;
   const CoordinateY = Math.floor(e.layerY / pixelSize) * pixelSize;
@@ -68,3 +76,10 @@ canvasElement.addEventListener("mousedown", e => {
 });
 // try to make it full width and height
 // make arrows so u can move around the pixelart
+
+// maybe be able to make width and height instead of scale
+// make pixel size input and width * height input
+window.addEventListener("mousemove", e => {
+  cursor.style.left = `${e.pageX}px`;
+  cursor.style.top = `${e.pageY}px`;
+});
