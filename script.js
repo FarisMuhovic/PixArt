@@ -1,16 +1,59 @@
 const canvasElement = document.getElementById("drawing-board");
 const canvas = canvasElement.getContext("2d");
 const root = document.documentElement;
-const pixelSize = 32;
-const size = 12;
-root.style.setProperty("--pixel-size", pixelSize + "px");
-root.style.setProperty("--size", size);
+let pixelSize = 32;
+let size = 16;
 const drawingContainer = document.getElementById("fakeCanvas");
-for (let i = size ** 2; i > 0; i--) {
-  drawingContainer.insertAdjacentHTML("beforeend", `<div></div>`);
+const pixelSizeInput = document.getElementById("pixelsize");
+const gridSizeInput = document.getElementById("gridsize");
+const widthText = document.getElementById("widthText");
+const heightText = document.getElementById("heightText");
+function changeCanvasSize(pixel = 16, gridSize = 8) {
+  canvasElement.width = gridSize * pixel;
+  canvasElement.height = gridSize * pixel;
+  pixelSize = pixel;
+  size = gridSize;
+  pixelSizeInput.value = pixel;
+  gridSizeInput.value = size;
+  // canvas.restore();
 }
-canvasElement.width = size * pixelSize;
-canvasElement.height = size * pixelSize;
+changeCanvasSize(pixelSize, size);
+const numbersCheckbox = document.getElementById("hide-numbers");
+function fakeGrid(size) {
+  drawingContainer.innerHTML = "";
+  for (let i = 0; i < size ** 2; i++) {
+    drawingContainer.insertAdjacentHTML("beforeend", `<div></div>`);
+  }
+  numbersCheckbox.addEventListener("click", () => {
+    if (numbersCheckbox.checked == true) {
+      drawingContainer.innerHTML = "";
+      for (let i = 0; i < size ** 2; i++) {
+        drawingContainer.insertAdjacentHTML("beforeend", `<div>${i}</div>`);
+      }
+    } else {
+      drawingContainer.innerHTML = "";
+      for (let i = 0; i < size ** 2; i++) {
+        drawingContainer.insertAdjacentHTML("beforeend", `<div></div>`);
+      }
+    }
+  });
+  root.style.setProperty("--pixel-size", pixelSize + "px");
+  root.style.setProperty("--size", size);
+}
+fakeGrid(size);
+pixelSizeInput.addEventListener("change", () => {
+  changeCanvasSize(pixelSizeInput.value, size);
+  fakeGrid(size);
+  // canvas.restore();
+  widthText.innerHTML = `W: ${pixelSizeInput.value * size}px`;
+  heightText.innerHTML = `H: ${pixelSizeInput.value * size}px`;
+});
+gridSizeInput.addEventListener("change", () => {
+  changeCanvasSize(pixelSize, gridSizeInput.value);
+  fakeGrid(size);
+  widthText.innerHTML = `W: ${pixelSizeInput.value * size}px`;
+  heightText.innerHTML = `H: ${pixelSizeInput.value * size}px`;
+});
 let color = "white";
 const colors = document.querySelectorAll(".colors div");
 colors.forEach(col => {
@@ -49,7 +92,7 @@ eraser.addEventListener("click", () => {
 const drawingPen = document.getElementById("marker");
 drawingPen.addEventListener("click", () => {
   cursor.innerHTML = `<i class="fa-solid fa-highlighter cursori"></i>`;
-  canvas.globalCompositeOperation = "destination-over";
+  canvas.globalCompositeOperation = "source-over";
 });
 let scaleValue = 1;
 const zoomIn = document.getElementById("zoomin");
@@ -68,18 +111,31 @@ zoomOut.addEventListener("click", () => {
   }
   root.style.setProperty("--canvas-scale", scaleValue);
 });
-canvasElement.addEventListener("mousedown", e => {
+canvasElement.addEventListener("mousedown", function mousedowndraw(e) {
   const CoordinateX = Math.floor(e.layerX / pixelSize) * pixelSize;
   const CoordinateY = Math.floor(e.layerY / pixelSize) * pixelSize;
   canvas.fillStyle = color;
   canvas.fillRect(CoordinateX, CoordinateY, pixelSize, pixelSize);
+  canvasElement.addEventListener("mousemove", function mousemoveDraw(e) {
+    if (e.buttons == 1) {
+      const CoordinateX = Math.floor(e.layerX / pixelSize) * pixelSize;
+      const CoordinateY = Math.floor(e.layerY / pixelSize) * pixelSize;
+      canvas.fillStyle = color;
+      canvas.fillRect(CoordinateX, CoordinateY, pixelSize, pixelSize);
+    } else {
+      e.preventDefault();
+    }
+  });
 });
-// try to make it full width and height
-// make arrows so u can move around the pixelart
-
-// maybe be able to make width and height instead of scale
-// make pixel size input and width * height input
 window.addEventListener("mousemove", e => {
   cursor.style.left = `${e.pageX}px`;
   cursor.style.top = `${e.pageY}px`;
+});
+// finish import export feature.
+const exportButton = document.getElementById("export");
+exportButton.addEventListener("click", () => {
+  let url = canvasElement.toDataURL();
+  const fullQuality = canvasElement.toDataURL("image/png", 1.0);
+  console.log(fullQuality);
+  window.open(fullQuality);
 });

@@ -22,7 +22,8 @@
   transform: translate(0%, -50%);
   color: var(--icons-color);
   pointer-events: none;
-  filter: drop-shadow(0px 0px 3px var(--selected-color))
+  filter: drop-shadow(0px 0px 5px  var(--selected-color));
+  font-weight: 1000;
 }
 
 #cursor {
@@ -35,7 +36,6 @@ body {
   display: grid;
   grid-template-columns: 1fr 10fr;
   grid-template-rows: 65px 1fr;
-  overflow-x: hidden;
 }
 nav {
   display: flex;
@@ -46,6 +46,7 @@ nav {
   background-color: rgb(24, 24, 24);
   grid-column: 1 / -1;
   z-index: 1;
+  position: relative;
 }
 nav h1 {
   font-size: 30px;
@@ -63,10 +64,38 @@ nav h1 {
   justify-items: center;
   align-items: center;
   gap: 10px;
+  position: relative;
+  padding: 8px 4px;
+}
+#export:hover , #import:hover {
+  background-color: rgb(46, 46, 46);
+}
+#export::before , #import::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  transition: 0.3s;
+  height: 3px;
+  background-color: rgb(255, 255, 255);
+}
+#export:hover:before , #import:hover:before {
+  width: 100%;
+}
+.logo {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  gap: 15px;
+}
+.logo-img {
+  width: 30px;
+  height: 30px;
 }
 .vertical-nav {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: flex-start;
   flex-direction: column;
   width: 130px;
@@ -101,12 +130,12 @@ nav h1 {
 .tools div i {
   font-size: 28px;
 }
-#pixelsize,#gridsize {
+.pixelsize,.gridsize {
   grid-column:  1 / -1;
   width: 100%;
   text-align: center;
 }
-#pixelsize input,#gridsize input {
+.pixelsize input,.gridsize input {
   width: 100%;
   outline: none;
   border: none;
@@ -167,10 +196,11 @@ input[type=number] {
   display: flex;
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 90vh;
   transform-origin: top left;
   overflow: scroll;
-  margin: 15px 0 ;
+  resize: both;
+  margin: 80px 0;
 }
 #drawing-board {
   background-color: transparent;
@@ -181,6 +211,7 @@ input[type=number] {
   left: 5%;
   transform-origin: top left;
   transform:  scale(var(--canvas-scale));
+  background: transparent;
 }
 #fakeCanvas {
   display: grid;
@@ -196,4 +227,50 @@ input[type=number] {
 }
 #fakeCanvas div {
   border: 1px solid rgba(0, 0, 0, 0.082);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 15px;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.dimensions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+}
+#widthText , #heightText{
+  font-size: 30px;
+}
+.canvas-size {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: rgb(24, 24, 24);
+  height: 75px;
+  padding: 10px;
+  flex-direction: column;
+}
+.hidenumbers {
+  grid-column: 1 / -1;
+  cursor: none;
+}
+.hidenumbers label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: none;
+}
+#hide-numbers {
+  cursor: none;
 }

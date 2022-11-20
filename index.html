@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>PixArt</title>
+    <link rel="icon" type="image/png" href="images/applelogomini.png">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="design.css">
@@ -13,10 +14,17 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
   </head>
   <body>
     <nav>
-      <h1>PixArt</h1>
+      <div class="logo">
+        <img src="images/applelogo.png" alt="appleLogo" class="logo-img">
+        <h1>PixArt</h1>
+      </div>
       <div class="filemanagment">
         <div id="import"><p>Import</p><i class="fa-solid fa-upload"></i></div>
         <div id="export"><p>Export</p><i class="fa-solid fa-download"></i></div>
+      </div>
+      <div class="canvas-size">
+        <p id="widthText">W: 512px</p>
+        <p id="heightText">H: 512px</p>
       </div>
     </nav>
     <div class="vertical-nav">
@@ -26,8 +34,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
         <div id="eraser"><i class="fa-solid fa-eraser"></i></div>
         <div id="zoomin"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
         <div id="zoomout"><i class="fa-solid fa-magnifying-glass-minus"></i></div>
-        <div id="pixelsize"><p>Pixel size:</p><input type="number" min="8" max="64"></div>
-        <div id="gridsize"><p>Grid size:</p><input type="number" min="4" max="24"></div>
+        <div class="pixelsize"><p>Pixel size:</p><input type="number" min="8" max="64" placeholder="8-64" id="pixelsize"></div>
+        <div class="gridsize"><p>Grid size:</p><input type="number" min="8" max="24" placeholder="4-24" id="gridsize"></div>
+        <div class="hidenumbers">
+          <label for="hide-numbers">
+            <p>Show Container Numbers</p>
+            <input type="checkbox" id="hide-numbers">
+          </label>
+        </div>
       </div>
       <div class="colors">
         <h1>COLORS</h2>
